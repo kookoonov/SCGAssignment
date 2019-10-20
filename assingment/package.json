@@ -3,13 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "mobx": "^5.14.2",
     "mobx-react": "^6.1.4",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.10.2",
-    "react-scripts": "3.2.0"
+    "react-places-autocomplete": "^7.2.1",
+    "react-scripts": "3.2.0",
+    "then-request": "^6.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -17,6 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://maps.googleapis.com",
   "eslintConfig": {
     "extends": "react-app"
   },

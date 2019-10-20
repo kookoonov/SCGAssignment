@@ -6,6 +6,10 @@ class Header extends React.Component {
     return (
       <div>
         <h1>Header</h1>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
       </div>
     );
   }
