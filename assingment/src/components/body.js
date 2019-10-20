@@ -15,6 +15,8 @@ class Body extends React.Component {
       result: [],
       position: {},
       locationText: '',
+      showNearByStore: false,
+      nearbyStore: undefined,
     };
     this.locationTxt = React.createRef();
   }
@@ -35,48 +37,16 @@ class Body extends React.Component {
     const results = await geocodeByAddress(locationText);
     const geoLocation = results[0].geometry.location;
     const location = [geoLocation.lat(), geoLocation.lng()];
-    // const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location[0], location[1]}&radius=1000&types=food&key=AIzaSyBmz2RLwsvdp0nhjBWUJ4abf27Nrn2ksCs`
-    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location[0], location[1]}&radius=1000&type=restaurant&keyword=&key=AIzaSyBcqAN0A9zmWYC-tGYn8ggt2G9Nwx-cC-g`
-    console.log('url ------------->>', url);
-    // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    const url = 'http://localhost:3001/nearby'
     const nearPlace = await axios.get(url, {
       headers: {
         'Access-Control-Allow-Origin': '*',
-        // 'Content-Type': 'application/x-www-form-urlencoded'
       },
-      // crossdomain: true
-      // headers: { 'Content-Type': 'application/json' },
     });
-
-    // request('GET', url, {
-    //   headers: {
-    //     'Access-Control-Allow-Origin': '*',
-    //     // 'Content-Type': 'none'
-    //   }
-    // }).done(function (res) {
-    //   console.log(res.getBody());
-    // });
-
-    // var express = require('express')
-    // var cors = require('cors')
-    // var app = express()
-
-    // var corsOptions = {
-    //   origin: 'http://localhost:3000',
-    //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-    // }
-
-    // app.get(url, cors(), function (req, res, next) {
-    //   res.json({ msg: 'This is CORS-enabled for a Single Route' })
-    // })
-
-    // app.listen(80, function () {
-    //   console.log('CORS-enabled web server listening on port 80')
-    // })
-    // console.log('location ------------->>', location);
-    // console.log('nearPlace ------------->>', nearPlace);
-
-
+    if (nearPlace && nearPlace.data && nearPlace.data.data && nearPlace.data.data.results) {
+      this.setState({ nearbyStore: nearPlace.data.data.results, showNearByStore: true })
+    }
+    console.log('nearPlace ------------->>', nearPlace.data.data.results);
   }
 
   render() {
@@ -88,7 +58,17 @@ class Body extends React.Component {
           <FormControl className="col-md-5" ref={this.locationTxt} type="text" defaultValue="บางซื่อ" />
           <button type="button" className="btn btn-primary" onClick={this.onFindStoreClick.bind(this)}>find</button>
         </div>
+        {
+          (this.state.showNearByStore) &&
+          (
+            <div>
+              <h2> ร้านอาหารใกล้เคียง</h2>
+              <h3>{JSON.stringify( this.state.nearbyStore)}</h3>
 
+            </div>
+
+          )
+        }
 
         <h1>X, 5, 9, 15, 23, Y, Z - Please create a new function for finding X, Y, Z value</h1>
         <button type="button" className="btn btn-primary" onClick={this.onFindClick.bind(this, 10)}>function for finding X, Y, Z value</button>
