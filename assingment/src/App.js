@@ -4,6 +4,7 @@ import Body from './components/body'
 import Footer from './components/footer'
 import { observer } from 'mobx-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 class App extends React.Component {
   render() {
