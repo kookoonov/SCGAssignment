@@ -45,6 +45,7 @@ class Body extends React.Component {
     const results = await geocodeByAddress(locationText);
     const geoLocation = results[0].geometry.location;
     const location = [geoLocation.lat(), geoLocation.lng()];
+    console.log('location ------------->>', location);
     const url = `http://localhost:3001/nearby/${location[0]}, ${location[1]}`
     const nearPlace = await axios.get(url, {
       headers: {
@@ -127,9 +128,7 @@ class Body extends React.Component {
   }
 
   render() {
-    console.log('this.state.showRes ------------->>', this.state.showRes);
     return (
-
       <div className="container col-md-12 ">
         <button type="button" className="btn btn-primary col-md-2" onClick={this.showSection.bind(this, 'XYZ')}>Find X, Y, Z</button>
         <button type="button" className="btn btn-secondary col-md-2" onClick={this.showSection.bind(this, 'Res')}>Find Restaurants</button>
